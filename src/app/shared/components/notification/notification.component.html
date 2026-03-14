@@ -1,0 +1,115 @@
+<div
+  class="z-10 flex items-start gap-4 w-96 max-w-[90vw] rounded-2xl shadow-2xl p-4 mb-3 border border-white/20 backdrop-blur-md transition-all duration-300 ease-out animate-slide-in relative overflow-hidden"
+  [class]="typeClasses()"
+  [class.cursor-pointer]="notification().redirectTo"
+  (click)="onContentClick()"
+>
+  <!-- Background Glow -->
+  <div class="absolute inset-0 opacity-10" [style.background]="glowColor()"></div>
+
+  <!-- Icon Section -->
+  <div class="flex-shrink-0 mt-1">
+    @switch (notification().type) {
+      @case ('success') {
+        <div class="bg-green-500/20 p-2 rounded-lg">
+          <svg
+            class="w-6 h-6 text-green-400 font-bold"
+            fill="none"
+            stroke="currentColor"
+            viewBox="0 0 24 24"
+          >
+            <path
+              stroke-linecap="round"
+              stroke-linejoin="round"
+              stroke-width="2.5"
+              d="M5 13l4 4L19 7"
+            />
+          </svg>
+        </div>
+      }
+      @case ('error') {
+        <div class="bg-red-500/20 p-2 rounded-lg">
+          <svg
+            class="w-6 h-6 text-red-400 font-bold"
+            fill="none"
+            stroke="currentColor"
+            viewBox="0 0 24 24"
+          >
+            <path
+              stroke-linecap="round"
+              stroke-linejoin="round"
+              stroke-width="2.5"
+              d="M6 18L18 6M6 6l12 12"
+            />
+          </svg>
+        </div>
+      }
+      @case ('warning') {
+        <div class="bg-amber-500/20 p-2 rounded-lg">
+          <svg
+            class="w-6 h-6 text-amber-400 font-bold"
+            fill="none"
+            stroke="currentColor"
+            viewBox="0 0 24 24"
+          >
+            <path
+              stroke-linecap="round"
+              stroke-linejoin="round"
+              stroke-width="2.5"
+              d="M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-3L13.732 4c-.77-1.333-2.694-1.333-3.464 0L3.34 16c-.77 1.333.192 3 1.732 3z"
+            />
+          </svg>
+        </div>
+      }
+      @default {
+        <div class="bg-blue-500/20 p-2 rounded-lg">
+          <svg
+            class="w-6 h-6 text-blue-400 font-bold"
+            fill="none"
+            stroke="currentColor"
+            viewBox="0 0 24 24"
+          >
+            <path
+              stroke-linecap="round"
+              stroke-linejoin="round"
+              stroke-width="2.5"
+              d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"
+            />
+          </svg>
+        </div>
+      }
+    }
+  </div>
+
+  <!-- Content Section -->
+  <div class="flex-1 min-w-0">
+    @if (notification().title) {
+      <h4 class="text-sm font-semibold mb-1 text-white">{{ notification().title }}</h4>
+    }
+    <p class="text-sm text-gray-200 leading-relaxed font-medium">
+      {{ notification().message }}
+    </p>
+  </div>
+
+  <!-- Close Button -->
+  <button
+    class="z-10 flex-shrink-0 text-white/50 hover:text-white transition-colors p-1"
+    (click)="close.emit(notification().id)"
+  >
+    <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+      <path
+        stroke-linecap="round"
+        stroke-linejoin="round"
+        stroke-width="2"
+        d="M6 18L18 6M6 6l12 12"
+      />
+    </svg>
+  </button>
+
+  <!-- Progress Bar (Timer) -->
+  <div
+    class="absolute bottom-0 left-0 h-1 bg-white/20 transition-all"
+    [style.width]="'100%'"
+    [style.transitionDuration]="notification().duration + 'ms'"
+  ></div>
+</div>

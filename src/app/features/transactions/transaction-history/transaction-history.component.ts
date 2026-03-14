@@ -1,9 +1,9 @@
 import { Component, inject } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { Store } from '@ngrx/store';
-import { selectTransactions } from '../../../store/selectors/fund.selectors';
 import { CopCurrencyPipe } from '../../../core/pipes/currency-cop.pipe';
-import { FundActions } from '../../../store/actions/fund.actions';
+import { FundActions } from '../../../store/found/fund.actions';
+import { selectTransactions } from '../../../store/found/fund.selectors';
 
 @Component({
   selector: 'app-transaction-history',
