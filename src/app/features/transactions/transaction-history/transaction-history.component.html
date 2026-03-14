@@ -1,0 +1,124 @@
+<div class="container mx-auto p-6 md:p-8 animate-fade-in-up">
+  <div class="bg-white rounded-2xl shadow-sm border border-gray-100 overflow-hidden">
+    <div class="p-8 border-b border-gray-100 bg-gray-50 flex justify-between items-center">
+      <div>
+        <h2 class="text-2xl font-bold text-gray-800">Historial de Transacciones</h2>
+        <p class="text-gray-500 mt-1">Revisa tus suscripciones e inversiones</p>
+      </div>
+    </div>
+
+    <div class="overflow-x-auto">
+      <table class="w-full text-left border-collapse">
+        <thead>
+          <tr class="bg-white border-b border-gray-200">
+            <th class="py-4 px-6 text-xs font-semibold text-gray-500 uppercase tracking-wider">
+              Fecha
+            </th>
+            <th class="py-4 px-6 text-xs font-semibold text-gray-500 uppercase tracking-wider">
+              Fondo
+            </th>
+            <th class="py-4 px-6 text-xs font-semibold text-gray-500 uppercase tracking-wider">
+              Tipo
+            </th>
+            <th class="py-4 px-6 text-xs font-semibold text-gray-500 uppercase tracking-wider">
+              Monto
+            </th>
+            <th class="py-4 px-6 text-xs font-semibold text-gray-500 uppercase tracking-wider">
+              Notificación
+            </th>
+            <th class="py-4 px-6 text-xs font-semibold text-gray-500 uppercase tracking-wider text-right">
+              Acciones
+            </th>
+          </tr>
+        </thead>
+        <tbody class="divide-y divide-gray-100">
+          <tr *ngFor="let tx of transactions$ | async" class="hover:bg-gray-50 transition-colors">
+            <td class="py-4 px-6 text-sm text-gray-700 whitespace-nowrap">
+              {{ tx.date | date: 'dd/MM/yyyy HH:mm' }}
+            </td>
+            <td class="py-4 px-6 text-sm font-medium text-gray-900">Fondo #{{ tx.fundId }}</td>
+            <td class="py-4 px-6 text-sm">
+              <span
+                class="inline-flex px-2 py-1 text-xs font-bold rounded-full"
+                [ngClass]="{
+                  'bg-green-100 text-green-800': tx.type === 'SUBSCRIBE',
+                  'bg-red-100 text-red-800': tx.type === 'CANCEL',
+                }"
+              >
+                {{ tx.type }}
+              </span>
+            </td>
+            <td class="py-4 px-6 text-sm font-semibold text-gray-900 whitespace-nowrap">
+              {{ tx.amount | copCurrency }}
+            </td>
+            <td class="py-4 px-6 text-sm text-gray-500">
+              <span class="flex items-center gap-1">
+                @if (tx.notificationType === 'EMAIL') {
+                  <svg
+                    class="w-4 h-4 text-gray-400"
+                    fill="none"
+                    stroke="currentColor"
+                    viewBox="0 0 24 24"
+                  >
+                    <path
+                      stroke-linecap="round"
+                      stroke-linejoin="round"
+                      stroke-width="2"
+                      d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2-2v10a2 2 0 002 2z"
+                    ></path>
+                  </svg>
+                }
+                @if (tx.notificationType === 'SMS') {
+                  <svg
+                    class="w-4 h-4 text-gray-400"
+                    fill="none"
+                    stroke="currentColor"
+                    viewBox="0 0 24 24"
+                  >
+                    <path
+                      stroke-linecap="round"
+                      stroke-linejoin="round"
+                      stroke-width="2"
+                      d="M12 18h.01M8 21h8a2 2 0 002-2V5a2 2 0 00-2-2H8a2 2 0 00-2 2v14a2 2 0 002 2z"
+                    ></path>
+                  </svg>
+                }
+                {{ tx.notificationType }}
+              </span>
+            </td>
+            <td class="py-4 px-6 text-sm text-right">
+              @if (tx.type === 'SUBSCRIBE') {
+                <button
+                  (click)="onCancel(tx.id)"
+                  class="px-3 py-1.5 bg-red-50 text-red-600 hover:bg-red-100 hover:text-red-700 font-medium rounded-lg transition-colors border border-red-200"
+                >
+                  Cancelar
+                </button>
+              }
+            </td>
+          </tr>
+          @if (!(transactions$ | async)?.length) {
+            <tr>
+              <td colspan="6" class="py-12 text-center text-gray-500">
+                <svg
+                  class="mx-auto h-12 w-12 text-gray-300 mb-3"
+                  fill="none"
+                  stroke="currentColor"
+                  viewBox="0 0 24 24"
+                >
+                  <path
+                    stroke-linecap="round"
+                    stroke-linejoin="round"
+                    stroke-width="2"
+                    d="M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2M9 5a2 2 0 012-2h2a2 2 0 012 2"
+                  ></path>
+                </svg>
+                Aún no hay transacciones registradas.
+              </td>
+            </tr>
+          }
+        </tbody>
+      </table>
+    </div>
+  </div>
+</div>
