@@ -1,29 +1,29 @@
 import { createFeatureSelector, createSelector } from '@ngrx/store';
-import { AppState } from '../app.state';
+import { FoundState } from './found.reducer';
 
-export const selectAppState = createFeatureSelector<AppState>('app');
+export const selectAppState = createFeatureSelector<FoundState>('found');
 
 export const selectFunds = createSelector(
   selectAppState,
-  (state: AppState) => state.funds
+  (state: FoundState) => state.funds
 );
 
 export const selectTransactions = createSelector(
   selectAppState,
-  (state: AppState) => state.transactions
+  (state: FoundState) => state.transactions
 );
 
 export const selectBalance = createSelector(
   selectAppState,
-  (state: AppState) => state.balance
+  (state: FoundState) => state.balance
 );
 
 export const selectLoading = createSelector(
   selectAppState,
-  (state: AppState) => state.loading
+  (state: FoundState) => state.loading
 );
 
 export const selectError = createSelector(
   selectAppState,
-  (state: AppState) => state.error
+  (state: FoundState) => state.error
 );

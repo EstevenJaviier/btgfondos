@@ -1,13 +1,13 @@
 import { Component, OnInit, inject } from '@angular/core';
 import { Store } from '@ngrx/store';
 import { FundCardComponent } from '../fund-card/fund-card.component';
-import { FundActions } from '../../../store/actions/fund.actions';
-import { selectFunds, selectLoading, selectError, selectBalance } from '../../../store/selectors/fund.selectors';
 import { CopCurrencyPipe } from '../../../core/pipes/currency-cop.pipe';
 import { Fund } from '../../../core/models/fund.model';
 import { AsyncPipe } from '@angular/common';
 import { Dialog, DialogModule } from '@angular/cdk/dialog';
 import { SubscribeFormComponent } from '../../subscribe/subscribe-form/subscribe-form.component';
+import { FundActions } from '../../../store/found/fund.actions';
+import { selectFunds, selectLoading, selectError, selectBalance } from '../../../store/found/fund.selectors';
 
 @Component({
   selector: 'app-fund-list',

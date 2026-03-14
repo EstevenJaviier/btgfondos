@@ -1,13 +1,13 @@
 import { Component, OnInit, inject } from '@angular/core';
 import { ReactiveFormsModule, FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Store } from '@ngrx/store';
-import { selectFunds, selectBalance } from '../../../store/selectors/fund.selectors';
-import { FundActions } from '../../../store/actions/fund.actions';
 import { take } from 'rxjs';
 import { Fund } from '../../../core/models/fund.model';
 import { CopCurrencyPipe } from '../../../core/pipes/currency-cop.pipe';
 import { DIALOG_DATA, DialogRef, DialogModule } from '@angular/cdk/dialog';
 import { NgClass } from '@angular/common';
+import { selectFunds, selectBalance } from '../../../store/found/fund.selectors';
+import { FundActions } from '../../../store/found/fund.actions';
 
 @Component({
   selector: 'app-subscribe-form',
@@ -63,7 +63,7 @@ export class SubscribeFormComponent implements OnInit {
       const transaction = {
         id: new Date().getTime(),
         fundId: this.fund.id,
-        type: 'SUBSCRIBE' as const,
+        status: 'SUBSCRIBE' as const,
         amount: formValue.amount,
         date: new Date(),
         notificationType: formValue.notification
