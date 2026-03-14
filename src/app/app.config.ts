@@ -5,17 +5,19 @@ import { routes } from './app.routes';
 import { provideStore } from '@ngrx/store';
 import { provideEffects } from '@ngrx/effects';
 import { provideHttpClient } from '@angular/common/http';
-import { appReducer } from './store/reducers/app.reducer';
-import { FundEffects } from './store/effects/fund.effects';
+import { foundReducer } from './store/found/found.reducer';
+import { FundEffects } from './store/found/fund.effects';
 import { provideStoreDevtools } from '@ngrx/store-devtools';
+import { uiNotificationReducer } from './store/ui-notifications/ui-notification.reducer';
+import { UiNotificationEffects } from './store/ui-notifications/ui-notification.effects';
 
 export const appConfig: ApplicationConfig = {
   providers: [
     provideBrowserGlobalErrorListeners(),
     provideRouter(routes),
     provideHttpClient(),
-    provideStore({ app: appReducer }),
-    provideEffects([FundEffects]),
+    provideStore({ found: foundReducer, uiNotification: uiNotificationReducer }),
+    provideEffects([FundEffects, UiNotificationEffects]),
     provideStoreDevtools({ maxAge: 25, logOnly: !isDevMode() }),
   ],
 };
