@@ -30,7 +30,7 @@ export class FundListComponent implements OnInit {
 
   onSubscribe(fund: Fund) {
     this.dialog.open(SubscribeFormComponent, {
-      minWidth: '350px',
+      minWidth: '500px',
       data: { fundId: fund.id }
     });
   }
