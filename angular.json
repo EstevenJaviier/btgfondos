@@ -6,7 +6,7 @@
   },
   "newProjectRoot": "projects",
   "projects": {
-    "btgfondos": {
+    "fondos": {
       "projectType": "application",
       "schematics": {},
       "root": "",
@@ -56,10 +56,10 @@
           "builder": "@angular/build:dev-server",
           "configurations": {
             "production": {
-              "buildTarget": "btgfondos:build:production"
+              "buildTarget": "fondos:build:production"
             },
             "development": {
-              "buildTarget": "btgfondos:build:development"
+              "buildTarget": "fondos:build:development"
             }
           },
           "defaultConfiguration": "development"
